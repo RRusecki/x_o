@@ -1,8 +1,9 @@
 import random
 
 pries_ai = input("Zaisti pries AI? (+ / -): ")
+
 if pries_ai == "+":
-    vardas_x = input("Iveskite zaidejo X varda: ")
+    vardas_x = input("iveskite zaidejo X varda: ")
     vardas_o = "AI"
 else:
     vardas_x = input("Iveskite zaidejo X varda: ")
@@ -10,13 +11,11 @@ else:
 
 x_laimejo = 0
 o_laimejo = 0
-lygiosios = 0
 
 kas_pradeda = "X"
 
-kombinacijos = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
-
 def tikrinti_laimejima(zaidejas):
+    kombinacijos = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
     for komb in kombinacijos:
         if lentele[komb[0]] == lentele[komb[1]] == lentele[komb[2]] == zaidejas:
             return True
@@ -35,30 +34,8 @@ while True:
     def ejimas(zaidejas):
         if pries_ai == "+" and zaidejas == "O":
             print("AI galvoja...")
-
-            for komb in kombinacijos:
-                x, y, z = lentele[komb[0]], lentele[komb[1]], lentele[komb[2]]
-                trys = [x, y, z]
-
-                if trys.count("O") == 2 and trys.count("X") == 0:
-                    for i in komb:
-                        if lentele[i] not in ["X", "O"]:
-                            lentele[i] ="O"
-                            return
-
-
-            for komb in kombinacijos:
-                x, y, z = lentele[komb[0]], lentele[komb[1]], lentele[komb[2]]
-                trys = [x, y, z]
-
-                if trys.count("X") == 2 and trys.count("O") == 0:
-                    for i in komb:
-                        if lentele[i] not in ["X", "O"]:
-                            lentele[i] = "O"
-                            return
-
-            galimi_langeliai = [langelis for langelis in lentele if langelis not in ["X", "O"]]
-            pasirinkimas = random.choice(galimi_langeliai)
+            galimi_langelia = [cell for cell in lentele if cell not in ["X", "O"]]
+            pasirinkimas = random.choice(galimi_langelia)
             lentele[int(pasirinkimas) - 1]  = zaidejas
         else:
             while True:
@@ -94,9 +71,8 @@ while True:
     else:
         atspausdinti_lentele()
         print("Lygiosios!")
-        lygiosios += 1
 
-    print(f"Statistika: {vardas_x} {"X"} {x_laimejo}, {vardas_o} {"O"} {o_laimejo}, lygiosios {lygiosios}")
+    print(f"Statistika: {vardas_x} ({"X"}) {x_laimejo}, {vardas_o} ({"O"}) {o_laimejo}")
 
     darkarta = input("Dar karta??? (+/-)")
     if darkarta != "+":
